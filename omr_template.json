@@ -1,6 +1,48 @@
 {
-  "total_questions": 60,
-  "columns": 2,
-  "options_per_question": 4,
-  "anchor_marks": ["top_left", "top_right", "bottom_left", "bottom_right"]
+  "paper_size": [
+    1200,
+    1600
+  ],
+  "exam_set": {
+    "1": [
+      180,
+      230
+    ],
+    "2": [
+      240,
+      230
+    ],
+    "3": [
+      300,
+      230
+    ],
+    "4": [
+      360,
+      230
+    ]
+  },
+  "student_code": {
+    "digits": 6,
+    "grid": {
+      "x_start": 560,
+      "y_start": 255,
+      "x_spacing": 90,
+      "y_spacing": 17,
+      "digits": 6
+    }
+  },
+  "answers": {
+    "col1": {
+      "x_start": 230,
+      "y_start": 510,
+      "x_spacing": 60,
+      "y_spacing": 33
+    },
+    "col2": {
+      "x_start": 770,
+      "y_start": 510,
+      "x_spacing": 60,
+      "y_spacing": 33
+    }
+  }
 }
