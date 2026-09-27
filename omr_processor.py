@@ -42,7 +42,7 @@ def process_omr(image_bytes, template_config):
     if image is None:
         raise ValueError("Invalid Image File")
 
-    # 1. Perspective Transform หรือ Resize ขนาด 1200x1600
+    # 1. Perspective Transform ดัดภาพให้ตรงขนาด 1200x1600
     paper_pts = find_paper_contour(image)
     if paper_pts is not None:
         warped = four_point_transform(image, paper_pts, 1200, 1600)
@@ -52,8 +52,8 @@ def process_omr(image_bytes, template_config):
     gray = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
     _, thresh = cv2.threshold(gray, 170, 255, cv2.THRESH_BINARY_INV)
 
-    radius = 11
-    threshold_pixels = 100
+    radius = 10
+    threshold_pixels = 75  # ปรับเกณฑ์นับพิกเซลสีดำลงมาเพื่อให้ตรวจจับจุดระบายได้ไวขึ้น
 
     def check_bubble(cx, cy):
         mask = np.zeros(thresh.shape, dtype="uint8")

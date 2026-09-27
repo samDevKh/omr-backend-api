@@ -18,7 +18,7 @@ def generate_a4_omr_sheet():
     cv2.putText(canvas, "OMR EXAM ANSWER SHEET", (400, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 0), 2)
     cv2.putText(canvas, "Name: ___________________________________ Subject: __________________", (120, 125), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
-    # 3. ส่วนระบายชุดข้อสอบ (Exam Set: 1-4)
+    # 3. ส่วนระบายชุดข้อสอบ (Exam Set 1 - 4)
     cv2.rectangle(canvas, (120, 150), (420, 440), (0, 0, 0), 1)
     cv2.putText(canvas, "Exam Set", (220, 180), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
     
@@ -30,7 +30,7 @@ def generate_a4_omr_sheet():
         cv2.putText(canvas, set_num, (x - 4, y + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
         exam_set_coords[set_num] = [x, y]
 
-    # 4. ส่วนรหัสนักเรียน 6 หลัก (Student ID: 0-9)
+    # 4. ส่วนรหัสนักเรียน 6 หลัก (Student ID 0 - 9)
     cv2.rectangle(canvas, (460, 150), (1080, 440), (0, 0, 0), 1)
     cv2.putText(canvas, "Student ID", (710, 180), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
 
@@ -42,12 +42,12 @@ def generate_a4_omr_sheet():
         "digits": 6
     }
 
-    # กล่องสี่เหลี่ยมเขียนมือ 6 ช่อง
+    # วาดกล่องเขียนมือ 6 ช่อง
     for digit_idx in range(6):
         box_x = student_code_grid["x_start"] + (digit_idx * student_code_grid["x_spacing"]) - 15
         cv2.rectangle(canvas, (box_x, 195), (box_x + 30, 230), (0, 0, 0), 1)
 
-    # วงกลมตัวเลข 0-9 ทั้ง 6 คอลัมน์
+    # วาดวงกลม 0-9
     for digit in range(10):
         y = student_code_grid["y_start"] + (digit * student_code_grid["y_spacing"])
         for col in range(6):
@@ -58,7 +58,7 @@ def generate_a4_omr_sheet():
     # เส้นแบ่ง
     cv2.line(canvas, (120, 465), (1080, 465), (0, 0, 0), 2)
 
-    # 5. ส่วนคำตอบ 60 ข้อ (2 คอลัมน์)
+    # 5. ส่วนคำตอบ 60 ข้อ
     options = ["A", "B", "C", "D"]
     col1_config = {"x_start": 230, "y_start": 510, "x_spacing": 60, "y_spacing": 33}
     col2_config = {"x_start": 770, "y_start": 510, "x_spacing": 60, "y_spacing": 33}
@@ -76,7 +76,7 @@ def generate_a4_omr_sheet():
             cv2.circle(canvas, (x, y), 11, (0, 0, 0), 1)
             cv2.putText(canvas, opt, (x - 5, y + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 0), 1)
 
-    # 6. บันทึกไฟล์
+    # 6. Save Template JSON
     template_data = {
         "paper_size": [W, H],
         "exam_set": exam_set_coords,
@@ -91,11 +91,10 @@ def generate_a4_omr_sheet():
     }
 
     cv2.imwrite("omr_sheet_A4.png", canvas)
-    
     with open("omr_template.json", "w", encoding="utf-8") as f:
         json.dump(template_data, f, indent=2)
 
-    print("SUCCESS_NEW_LAYOUT_GENERATED")
+    print("SUCCESS_REGENERATED_OMR_LAYOUT")
 
 if __name__ == "__main__":
     generate_a4_omr_sheet()
