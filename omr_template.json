@@ -1,0 +1,6 @@
+{
+  "total_questions": 60,
+  "columns": 2,
+  "options_per_question": 4,
+  "anchor_marks": ["top_left", "top_right", "bottom_left", "bottom_right"]
+}
